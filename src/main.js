@@ -8,6 +8,11 @@ import './assets/css/global.css'
 import axios from 'axios'
 //配置请求根路径
 axios.defaults.baseURL = 'http://localhost:8088/'
+//axios拦截器
+axios.interceptors.request.use(config => {
+  config.headers.Autorization = window.sessionStorage.getItem('token')
+  return config
+})
 //把axios挂载到全局
 Vue.prototype.$axios = axios
 

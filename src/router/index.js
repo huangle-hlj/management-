@@ -15,7 +15,19 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+    redirect: '/welcome',
+    children: [{
+      path: '/welcome',
+      name: 'welcome',
+      component: () => import(/* webpackChunkName: "about" */ '../components/Welcome.vue')
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: () => import(/* webpackChunkName: "about" */ '../components/Users.vue')
+    }
+    ]
   }
 ]
 const router = new VueRouter({
@@ -24,7 +36,7 @@ const router = new VueRouter({
 //挂载全局路由导航守卫
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
-  let token = window.sessionStorage.getItem('token')
+  const token = window.sessionStorage.getItem('token')
   if (!token) return next('/login')
   next()
 })
