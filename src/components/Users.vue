@@ -227,15 +227,15 @@ export default {
     addUserFrom() {
       this.$refs.ruleForm.validate(async valid => {
         if (!valid) return
-        let time = new Date().getTime()
-        let ruleForm = { ...this.ruleForm, time }
+        const time = new Date().getTime()
+        const ruleForm = { ...this.ruleForm, time }
         let res
         if (!this.changeOrAdd) {
           res = await this.$axios.post('users/users', ruleForm)
         } else {
           res = await this.$axios.put('users/users/' + this.id, ruleForm)
         }
-        if (res.status == 201) {
+        if (res.status === 201) {
           this.$message.success('操作成功')
           this.dialogVisible = false
           this.getUserInfo()
@@ -266,7 +266,7 @@ export default {
     //确认删除用户
     async delUserOk() {
       var res = await this.$axios.delete('users/users/' + this.id)
-      if (res.status == 202) {
+      if (res.status === 202) {
         this.$message.success('操作成功')
         this.getUserInfo()
       } else {
